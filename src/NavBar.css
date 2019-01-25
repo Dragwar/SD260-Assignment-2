@@ -1,0 +1,28 @@
+.NavBar {
+  z-index: 2;
+  position: sticky;
+  top: 0;
+  background-color: rgba(101, 103, 105, 0.897);
+}
+
+.NavBar ul {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-evenly;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.NavBar li {
+  margin: 10px;
+}
+
+.NavBar .page-link {
+  text-decoration: none;
+  color: lightgray;
+}
+
+.NavBar .page-link:hover {
+  color: white;
+}
