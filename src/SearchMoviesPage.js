@@ -11,6 +11,7 @@ class SearchMoviesPage extends Component {
       response: "False",
       movies: [],
       totalResults: 0,
+      error: "",
     },
   }
 
@@ -52,13 +53,28 @@ class SearchMoviesPage extends Component {
   }
 
   setData = (newData) => {
-    this.setState((prevState) => ({
-      data: {
-        response: newData.Response,
-        movies: newData.Search,
-        totalResults: newData.totalResults,
-      }
-    }));
+    console.log('fetched data:', newData);
+
+    if (newData.Response === "False" || newData.Response === "false" || newData.Response === false) {
+      this.setState((prevState) => ({
+        data: {
+          response: newData.Response,
+          movies: [],
+          totalResults: 0,
+          error: newData.Error
+        }
+      }));
+
+    } else {
+      this.setState((prevState) => ({
+        data: {
+          response: newData.Response,
+          movies: newData.Search,
+          totalResults: newData.totalResults,
+          error: "",
+        }
+      }));
+    }
   }
 
   fetchTitle = (movieTitle, pageNum = 1) => {
@@ -70,12 +86,12 @@ class SearchMoviesPage extends Component {
 
   render() {
     const { query, data } = this.state;
-    console.log(data);
+    console.log('my state data:', data);
 
     return (
       <div className="SearchMoviesPage">
         <form
-          className="moive-search-form"
+          className="movie-search-form"
           onSubmit={(event) => this.handleSubmit(event)}
         >
           <input
@@ -89,6 +105,15 @@ class SearchMoviesPage extends Component {
           />
           <input type="submit" value="Search" />
         </form>
+
+        <p className="total-results">
+          {
+            data.totalResults > 0 && (
+              <span>Total Results: {data.totalResults}</span>
+            )
+          }
+        </p>
+
         <ul className="search-results">
           {
             (data.response === "True" || data.response === "True" || data.response === true) && data.movies.map((movie, index) => (
@@ -98,6 +123,13 @@ class SearchMoviesPage extends Component {
                 movie={movie}
               />
             ))
+          }
+          {
+            (data.response === "False" || data.response === "false" || data.response === false) && (
+              <li className="search-error">
+                <p>{data.error}</p>
+              </li>
+            )
           }
         </ul>
       </div>

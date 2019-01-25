@@ -3,6 +3,7 @@
   position: sticky;
   top: 0;
   background-color: rgba(101, 103, 105, 0.897);
+  margin-bottom: 15px;
 }
 
 .NavBar ul {

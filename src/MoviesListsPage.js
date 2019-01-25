@@ -10,8 +10,14 @@ class MoviesListsPage extends Component {
 
     return (
       <div className="MoviesListsPage">
-        testing
+        <ul className="watched-movies">
+          {/* filter through movies to display watched-movies */}
+        </ul>
+        <ul className="unwatched-movies">
+          {/* filter through movies to display unwatched-movies */}
+        </ul>
       </div>
+      
     );
   }
 }

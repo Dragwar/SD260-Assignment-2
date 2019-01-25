@@ -1,8 +1,27 @@
 .SearchMoviesPage {
-
+  color: white;
 }
 
 .SearchMoviesPage ul {
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-evenly;
+}
+
+.SearchMoviesPage .search-error {
+  list-style: none;
+  color: red;
+  font-size: 35px;
+}
+
+.SearchMoviesPage .movie-search-form {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: center;
+}
+
+.SearchMoviesPage .movie-search-form input {
+  padding: 5px;
 }

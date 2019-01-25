@@ -1,3 +1,27 @@
 .MovieCard {
   list-style: none;
+  border: 5px outset black;
+  border-radius: 15px 5px 15px 5px;
+  margin: 5px;
+  padding: 0px 15px;
+  background-color: darkslategrey;
+}
+
+.MovieCard .title {
+  margin: 10px 0px;
+  padding: 0;
+}
+
+.MovieCard .year {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.MovieCard .btn-container {
+  margin: 0px 0px 15px 0px;
+}
+
+.MovieCard .btn-container button {
+  padding: 5px;
 }
