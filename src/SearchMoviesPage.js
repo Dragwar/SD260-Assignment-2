@@ -7,23 +7,17 @@ import MovieCard from './MovieCard';
 class SearchMoviesPage extends Component {
   state = {
     query: "",
-    data: {
-      response: "False",
-      movies: [],
-      totalResults: 0,
-      error: "",
-    },
   }
 
   componentDidMount() {
     this.searchInput.focus();
   }
 
-  handleChange = (tgt) => {
+  handleChange = (event, tgt) => {
+    event.preventDefault();
     this.setState((prevState) => ({
       [tgt.name]: tgt.value
     }));
-    console.log(`changed ${tgt.name} to`, tgt.value);
   }
 
   handleSubmit = (event) => {
@@ -52,41 +46,16 @@ class SearchMoviesPage extends Component {
     }));
   }
 
-  setData = (newData) => {
-    console.log('fetched data:', newData);
-
-    if (newData.Response === "False" || newData.Response === "false" || newData.Response === false) {
-      this.setState((prevState) => ({
-        data: {
-          response: newData.Response,
-          movies: [],
-          totalResults: 0,
-          error: newData.Error
-        }
-      }));
-
-    } else {
-      this.setState((prevState) => ({
-        data: {
-          response: newData.Response,
-          movies: newData.Search,
-          totalResults: newData.totalResults,
-          error: "",
-        }
-      }));
-    }
-  }
-
   fetchTitle = (movieTitle, pageNum = 1) => {
     fetch(`${__API__.HOST}apikey=${__API__.MY_API_KEY}&s=${movieTitle}&type=movie&page=${pageNum}`)
       .then(response => response.json())
-      .then(data => this.setData(data))
-      .catch(err => console.warn("THIS IS A FETCH ERROR: line 48-52, error =", err))
+      .then(data => this.props.setData(data))
+      .catch(err => console.warn("THIS IS A FETCH ERROR:", err));
   }
 
   render() {
-    const { query, data } = this.state;
-    console.log('my state data:', data);
+    const { query } = this.state;
+    const { results, addMovie } = this.props;
 
     return (
       <div className="SearchMoviesPage">
@@ -100,7 +69,7 @@ class SearchMoviesPage extends Component {
             type="text"
             placeholder="Movie Name"
             value={query}
-            onChange={(event) => this.handleChange(event.target)}
+            onChange={(event) => this.handleChange(event, event.target)}
             ref={(input) => { this.searchInput = input; }}
           />
           <input type="submit" value="Search" />
@@ -108,26 +77,27 @@ class SearchMoviesPage extends Component {
 
         <p className="total-results">
           {
-            data.totalResults > 0 && (
-              <span>Total Results: {data.totalResults}</span>
+            results.totalResults > 0 && (
+              <span>Total Results: {results.totalResults}</span>
             )
           }
         </p>
 
         <ul className="search-results">
           {
-            (data.response === "True" || data.response === "True" || data.response === true) && data.movies.map((movie, index) => (
+            (results.response === "True" || results.response === "True" || results.response === true) && results.movies.map((movie, index) => (
               <MovieCard
                 key={index}
                 index={index}
                 movie={movie}
+                addMovie={addMovie}
               />
             ))
           }
           {
-            (data.response === "False" || data.response === "false" || data.response === false) && (
+            (results.response === "False" || results.response === "false" || results.response === false) && (
               <li className="search-error">
-                <p>{data.error}</p>
+                <p>{results.error}</p>
               </li>
             )
           }

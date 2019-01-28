@@ -1,4 +1,6 @@
 .MovieCard {
+  text-align: center;
+  text-align: -webkit-center;
   list-style: none;
   border: 5px outset black;
   border-radius: 15px 5px 15px 5px;
@@ -8,6 +10,7 @@
 }
 
 .MovieCard .title {
+  max-width: 170px;
   margin: 10px 0px;
   padding: 0;
 }
@@ -16,6 +19,8 @@
   display: inline;
   margin: 0;
   padding: 0;
+  font-size: 75%;
+  font-weight: 100;
 }
 
 .MovieCard .btn-container {
