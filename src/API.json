@@ -1,5 +1,5 @@
 {
-  "HOST": "http://www.omdbapi.com/?",
-  "IMAGE_HOST": "http://img.omdbapi.com/?",
+  "HOST": "https://www.omdbapi.com/?",
+  "IMAGE_HOST": "https://img.omdbapi.com/?",
   "MY_API_KEY": "f64748d"
 }
